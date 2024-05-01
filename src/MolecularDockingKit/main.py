@@ -1,40 +1,48 @@
-from src.MolecularDockingKit import getSmilesFromFile, xyzFromSmiles
+from src.MolecularDockingKit import get_smiles_from_file, xyz_from_smiles
 import os
 
-############################################################
-#                                                          #
-# This program generates the xyz coordinates for the drugs #
-# molecules and the rdock inputs                           #
-#                                                          #
-############################################################
 
-#Extracting the names and the smiles for all the drug molecules
-molNames, smiles = getSmilesFromFile.getSmilesFromFile('drugs.txt')
+def generate_docking_inputs():
+    """
+    Generates the xyz coordinates and rDock inputs for drug molecules.
 
-#Creating a separate directory for the docking calculations
-if not os.path.exists('rDock_inputs'):
-    os.mkdir('rDock_inputs')
-os.chdir('rDock_inputs')
+    This function extracts names and SMILES for all drug molecules from a file,
+    creates separate directories for docking calculations, generates xyz coordinates
+    from SMILES for each drug molecule, and generates rDock input files.
 
-#Loading a prm file template to be edited later for each molecule
-f = open('../../prm-template.prm', 'r').read()
+    Returns:
+    None.
+    """
 
-for i in range(len(molNames)):
-    #Creating a separate directory for each drug's calculation
-    if not os.path.exists(molNames[i]):
-        os.mkdir(molNames[i])
-    os.chdir(molNames[i])
+    # Extract names and SMILES for all drug molecules
+    mol_names, smiles = get_smiles_from_file.get_smiles_from_file('drugs.txt')
 
-    #Generating the xyz coordinates from smiles for the drug molecule
-    #and writing to a file in the sdf format
-    xyzFromSmiles.xyzFromSmiles(smiles[i], molNames[i])
+    # Create a separate directory for docking calculations
+    if not os.path.exists('rDock_inputs'):
+        os.mkdir('rDock_inputs')
+    os.chdir('rDock_inputs')
 
-    #Generate prm file with the use of the template loaded earlier
-    f1 = f.replace('YYYYY', molNames[i])
-    file1 = open(molNames[i] + '_rdock.prm', "w") 
-    file1.write(f1)
-    file1.close() 
+    # Load a prm file template to be edited later for each molecule
+    template = open('../../prm-template.prm', 'r').read()
 
+    for i in range(len(mol_names)):
+        # Create a separate directory for each drug's calculation
+        if not os.path.exists(mol_names[i]):
+            os.mkdir(mol_names[i])
+        os.chdir(mol_names[i])
+
+        # Generate xyz coordinates from SMILES for the drug molecule
+        # and write to a file in the sdf format
+        xyz_from_smiles.xyz_from_smiles(smiles[i], mol_names[i])
+
+        # Generate prm file using the loaded template
+        prm_content = template.replace('YYYYY', mol_names[i])
+        with open(mol_names[i] + '_rdock.prm', "w") as prm_file:
+            prm_file.write(prm_content)
+
+        os.chdir('../../../')
     os.chdir('../../../')
-os.chdir('../../../')
 
+
+if __name__ == '__main__':
+    generate_docking_inputs()
