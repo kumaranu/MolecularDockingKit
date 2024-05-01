@@ -1,8 +1,5 @@
-import getSmilesFromFile
-from rdkit import Chem
-from rdkit.Chem import AllChem
+from src.MolecularDockingKit import getSmilesFromFile, xyzFromSmiles
 import os
-import xyzFromSmiles
 
 ############################################################
 #                                                          #
@@ -20,7 +17,7 @@ if not os.path.exists('rDock_inputs'):
 os.chdir('rDock_inputs')
 
 #Loading a prm file template to be edited later for each molecule
-f = open('prm-template.prm', 'r').read()
+f = open('../../prm-template.prm', 'r').read()
 
 for i in range(len(molNames)):
     #Creating a separate directory for each drug's calculation
@@ -38,6 +35,6 @@ for i in range(len(molNames)):
     file1.write(f1)
     file1.close() 
 
-    os.chdir('../')
-os.chdir('../')
+    os.chdir('../../../')
+os.chdir('../../../')
 

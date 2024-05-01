@@ -44,7 +44,7 @@ for ligandName in molList:
 
     #Saving the energies for the (ligand + protein) and the ligand only geometry in a file
     np.savetxt('energies.txt', [res[0][1], res1[0][1]])
-    os.chdir('../')
-os.chdir('../')
+    os.chdir('../../../')
+os.chdir('../../../')
 
 

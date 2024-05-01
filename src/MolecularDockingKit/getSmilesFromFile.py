@@ -19,9 +19,9 @@ def getSmilesFromFile(fileName):
     
     #Writing the names of molecules in a file inside a separate directory
     #for future calculations
-    if not os.path.exists('moleculeLists'):
-        os.mkdir('moleculeLists')
-    os.chdir('moleculeLists')
+    if not os.path.exists('../../moleculeLists'):
+        os.mkdir('../../moleculeLists')
+    os.chdir('../../moleculeLists')
     with open("fileList.txt", 'w') as file:
         file.write('\n'.join(molNames))
 

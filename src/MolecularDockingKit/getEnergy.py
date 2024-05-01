@@ -11,10 +11,10 @@ import numpy as np
 #######################################################################
 
 
-os.chdir('moleculeLists')
+os.chdir('../../moleculeLists')
 molList = open('fileList.txt', 'r').readlines()
 molList = [mol.strip() for mol in molList]
-os.chdir('../')
+os.chdir('../../../')
 
 e1 = np.loadtxt('energy_protein/energies.txt')
 
@@ -24,9 +24,9 @@ for mol in molList:
     try:
         eCombined = np.loadtxt('energies.txt')
         print("%s, %3f, %3f, %3f, %3f, %3f" % (mol, eCombined[0], eCombined[1], e1, (eCombined[0] - eCombined[1] - e1), (eCombined[0] - eCombined[1] - e1)*627.503))
-        os.chdir('../') 
+        os.chdir('../../../')
     except:
-        os.chdir('../') 
+        os.chdir('../../../')
         continue
         print(mol, 'skipped due to some error')
-os.chdir('../')
+os.chdir('../../../')
