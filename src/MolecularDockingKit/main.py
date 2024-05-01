@@ -1,4 +1,5 @@
-from src.MolecularDockingKit import get_smiles_from_file, xyz_from_smiles
+from src.MolecularDockingKit.getSmilesFromFile import getSmilesFromFile
+from src.MolecularDockingKit.xyzFromSmiles import xyz_from_smiles
 import os
 
 
@@ -15,7 +16,7 @@ def generate_docking_inputs():
     """
 
     # Extract names and SMILES for all drug molecules
-    mol_names, smiles = get_smiles_from_file.get_smiles_from_file('drugs.txt')
+    mol_names, smiles = getSmilesFromFile('drugs.txt')
 
     # Create a separate directory for docking calculations
     if not os.path.exists('rDock_inputs'):
@@ -33,7 +34,7 @@ def generate_docking_inputs():
 
         # Generate xyz coordinates from SMILES for the drug molecule
         # and write to a file in the sdf format
-        xyz_from_smiles.xyz_from_smiles(smiles[i], mol_names[i])
+        xyz_from_smiles(smiles[i], mol_names[i])
 
         # Generate prm file using the loaded template
         prm_content = template.replace('YYYYY', mol_names[i])
