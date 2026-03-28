@@ -9,7 +9,7 @@ version = "0.0.1"
 readme = "README.md"
 license = { text = "BSD-3" }
 authors = [{ name = "Anup Kumar", email = "anukumar94663@gmail.com" }]
-keywords = ["MyKeyword1", "MyKeyword2"]
+keywords = ["docking", "drug-discovery"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
