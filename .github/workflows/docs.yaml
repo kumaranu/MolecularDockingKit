@@ -1,4 +1,5 @@
 name: docs
+
 on:
   push:
     branches: [main]
@@ -28,14 +29,16 @@ jobs:
 
       - name: Install pip packages
         run: |
+          python -m pip install --upgrade pip
           pip install uv
           uv pip install --system -r tests/requirements.txt
-          uv pip install --system .[docs]
+          uv pip install --system -e .[docs]
 
       - name: Build docs
-        run: mkdocs build
         id: build_docs
+        run: mkdocs build
 
       - name: Rebuild and deploy docs
-        run: mkdocs gh-deploy --force
         if: github.ref == 'refs/heads/main' && steps.build_docs.outcome == 'success'
+        run: mkdocs gh-deploy --force
+
